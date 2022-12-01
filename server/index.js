@@ -35,7 +35,7 @@ serverApp.use('/beneficiary', beneficiaryRoute);
 serverApp.use('/beneficiary', uploadRouter);
 serverApp.use('/donor', donorRoute);
 serverApp.use('/donation', donationRoute);
-serverApp.use('/donate',nodeMailRoute)
+serverApp.use('/donate',nodeMailRoute);
 serverApp.get('/', function (request, response) {
   response.send('hi, I am server');
 });

@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../app/store';
 import { updateWithDonate } from '../../../app/store/slices/beneficiarySlice';
-import { createDonation } from '../../../app/store/slices/donationSlice';
+import {
+  createDonation,
+  sendEmail,
+} from '../../../app/store/slices/donationSlice';
 import CreditCardComponent from './donateForm/CreditCardComponent';
 import DonateValueComponent from './donateForm/DonateValueComponent';
 import DonerInformationForm from './donateForm/DonerInformationForm';
@@ -58,6 +61,13 @@ export default function DonateForm() {
       updateWithDonate({
         id: selectedBeneficiary?.id,
         donation: parseInt(donateValue, 10),
+      }),
+    );
+    dispatch(
+      sendEmail({
+        churchName: selectedBeneficiary?.name,
+        donateAmount: parseInt(donateValue, 10),
+        email: donor?.email,
       }),
     );
   };
