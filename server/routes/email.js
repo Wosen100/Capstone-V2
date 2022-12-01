@@ -3,8 +3,7 @@ const nodeMailRoute = express.Router();
 const nodemailer = require('nodemailer');
 
 nodeMailRoute.route('/sendEmail').post(function (req, res) {
-  let { churchName, email, donateAmount, company, title, message } =
-    req.body;
+  let { churchName, email, donateAmount, title } = req.body;
 
   const treanspoeter = nodemailer.createTransport({
     service: 'gmail',
@@ -14,29 +13,36 @@ nodeMailRoute.route('/sendEmail').post(function (req, res) {
     },
   });
 
-  const mailOptions = {
-    from: 'donation@wosen.com',
-    to: email,
-    subject:
-      typeof title !== 'undefined' && title.length > 0
-        ? title
-        : `Donation to ${churchName} confirmation`,
-    html: `Thank you for your danotion <b>${churchName}</b> has received your donation of <b>$${donateAmount}</b>. <br/> <br/> Thank you`,
-  };
+  if (email) {
+    const mailOptions = {
+      from: 'donation@wosen.com',
+      to: email,
+      subject:
+        typeof title !== 'undefined' && title.length > 0
+          ? title
+          : `Donation to ${churchName} confirmation`,
+      html: `Thank you for your danotion <b>${churchName}</b> has received your donation of <b>$${donateAmount}</b>. <br/> <br/> Thank you`,
+    };
 
-  treanspoeter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      res.send({
-        status: 'error',
-        payload: error,
-      });
-    } else {
-      res.send({
-        status: 'success',
-        payload: info,
-      });
-    }
-  });
+    treanspoeter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        res.send({
+          status: 'error',
+          payload: error,
+        });
+      } else {
+        res.send({
+          status: 'success',
+          payload: info,
+        });
+      }
+    });
+  } else {
+    res.send({
+      status: 'error',
+      payload: 'No Email found',
+    });
+  }
 });
 
 module.exports = nodeMailRoute;
