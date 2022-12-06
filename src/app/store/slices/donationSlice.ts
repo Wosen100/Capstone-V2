@@ -16,6 +16,12 @@ interface DonationState {
   createDonationLoading: string;
 }
 
+interface DonationEmail {
+  churchName: String | undefined;
+  donateAmount: number;
+  email: String | undefined;
+}
+
 const initialState: DonationState = {
   newDonation: null,
   createDonationLoading: 'idle',
@@ -26,6 +32,21 @@ export const createDonation = createAsyncThunk(
   async (donation: Donation) => {
     try {
       const res = await axios.post('/donation/create', donation);
+      return res.data;
+    } catch {
+      return null;
+    }
+  },
+);
+
+export const sendEmail = createAsyncThunk(
+  '/donate/sendEmail',
+  async (dinationEmail: DonationEmail) => {
+    try {
+      const res = await axios.post(
+        '/donate/sendEmail',
+        dinationEmail,
+      );
       return res.data;
     } catch {
       return null;
@@ -53,6 +74,7 @@ export const DonationSlice = createSlice({
     builder.addCase(createDonation.pending, (state) => {
       state.createDonationLoading = 'loading';
     });
+    builder.addCase(sendEmail.fulfilled, () => {});
   },
 });
 
