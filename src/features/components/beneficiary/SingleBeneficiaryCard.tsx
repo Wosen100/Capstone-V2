@@ -38,7 +38,7 @@ export default function SingleBeneficiaryCard({
         style={{ fontWeight: '700' }}
         data-testid="name_value"
       >
-        {name.length < 35 ? name : `${name.substring(0, 35)} + '...'`}
+        {name.length < 35 ? name : `${name.substring(0, 35)}...`}
       </Typography>
 
       <hr />
@@ -48,7 +48,7 @@ export default function SingleBeneficiaryCard({
       >
         {reason?.length < 430
           ? reason
-          : `${reason.substring(0, 430)} + '...'`}
+          : `${reason.substring(0, 430)}...`}
       </Typography>
 
       <div style={{ marginTop: '10px' }}>

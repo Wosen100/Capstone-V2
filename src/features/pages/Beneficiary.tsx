@@ -105,7 +105,7 @@ export default function Beneficiary() {
               style={{ marginTop: '20px', paddingBottom: '100px' }}
             >
               {beneficiaryList.length &&
-                beneficiaryList.map((val) => {
+                beneficiaryList.map((val: BeneficiaryModel) => {
                   const {
                     name,
                     description,
