@@ -45,6 +45,7 @@ const NavWrapper = styled.nav`
 const navItems = [
   { text: 'Home', link: '/' },
   { text: 'Beneficiary', link: '/beneficiaries' },
+  { text: 'Contact Us', link: '/contact-us' },
 ];
 
 export default function Header() {

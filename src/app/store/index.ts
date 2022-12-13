@@ -3,11 +3,13 @@ import { combineReducers } from 'redux';
 import beneReducer from './slices/beneficiarySlice';
 import donorReducer from './slices/donorSlice';
 import donationReducer from './slices/donationSlice';
+import contactUsReducer from './slices/contactUsSlice';
 
 const reducer = combineReducers({
   bene: beneReducer,
   donor: donorReducer,
   donation: donationReducer,
+  contactUs: contactUsReducer,
 });
 const store = configureStore({
   reducer,

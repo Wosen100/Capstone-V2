@@ -22,7 +22,8 @@ const connectDB = require('./config/db.js');
 const uploadRouter = require('./routes/uploadFile');
 const donorRoute = require('./routes/donor');
 const donationRoute = require('./routes/donation');
-const nodeMailRoute = require('./routes/email')
+const nodeMailRoute = require('./routes/email');
+const contactUsRoute = require('./routes/contactUs');
 
 // load env variables
 
@@ -35,7 +36,8 @@ serverApp.use('/beneficiary', beneficiaryRoute);
 serverApp.use('/beneficiary', uploadRouter);
 serverApp.use('/donor', donorRoute);
 serverApp.use('/donation', donationRoute);
-serverApp.use('/donate',nodeMailRoute);
+serverApp.use('/donate', nodeMailRoute);
+serverApp.use('/contactUs', contactUsRoute);
 serverApp.get('/', function (request, response) {
   response.send('hi, I am server');
 });
@@ -48,14 +50,20 @@ serverApp.post('/api/auth/login', async (req, res) => {
       message: 'User not found',
     });
   } else {
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password,
+    );
     if (!validPassword) {
       return res.status(400).json({
         success: false,
         message: 'Invalid password',
       });
     } else {
-      const token = jwt.sign({ id: user.id, email: user.username }, 'secret123');
+      const token = jwt.sign(
+        { id: user.id, email: user.username },
+        'secret123',
+      );
       return res.status(200).json({
         success: true,
         message: 'Login successful',

@@ -6,6 +6,7 @@ import Beneficiary from '../features/pages/Beneficiary';
 import LandingPage from '../features/pages/LandingPage';
 import Signout from '../features/pages/auth/Signout';
 import BeneficiaryDetails from '../features/pages/BeneficiaryDetails';
+import ContactUs from '../features/pages/ContactUsPage';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/signout" element={<Signout />} />
         <Route path="/beneficiaries" element={<Beneficiary />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route
           path="/beneficiaries/details"
           element={<BeneficiaryDetails />}
